@@ -1,0 +1,28 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "hub",
+            "type": "shell",
+            "command": "python3 -m composed-robot.hub"
+        },
+        {
+            "label": "avoid",
+            "type": "shell",
+            "command": "python3 -m composed-robot.avoid.run"
+        },
+        {
+            "label": "distances",
+            "type": "shell",
+            "command": "python3 -m composed-robot.distance.rangers"
+        },
+        {
+            "label": "avoid-group",
+            "dependsOn": [
+                "hub","distances","avoid"
+            ]
+        }
+    ]
+}

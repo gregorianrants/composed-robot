@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "composed-robot"
+version = "0.1.0"
+description = "composes other packages that i wrote for a robot that uses the raspberry pi build hat, this is the main repo for making the robot do stuff"
+authors = ["gregorianrants <gregorian_rants@hotmail.com>"]
+license = "MIT"
+
+
+[tool.poetry.dependencies]
+python = "^3.9.2"
+buildhat-alternative = {git = "https://github.com/gregorianrants/buildhat-alternative.git"}
+robonet = {git = "https://github.com/gregorianrants/robonet.git"}
+python-dotenv = "^1.0.1"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
