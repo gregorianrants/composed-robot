@@ -4,7 +4,7 @@
 
 Obstacle avoiding raspberry pi robot, with distributed software architecture, at the moment this readme just gives an overview of what the hardware and software does. Soon more information will be added on both how the software works and how it was designed.
 
-<img src="robot.jpg" alt='the robot' width='400px'/
+<img src="robot.jpg" alt='the robot' width='400px'/>
 
 This is a rewrite of a project that was mainly written in nodejs. there are quite a few things i have already done in that project and others that i just need to reimplement.
 
