@@ -56,4 +56,6 @@ all three programs can be run at once using vs code tasks see .vscode/tasks.json
 
 ## where i am going with this
 
-next up is use computer vision to locate lego wheels drive up to the wheels then push them to a dro off location. this will use the subsumption architecture. I will also need to add odometry using encoders. I will calibrate the camera and use arduco markers of know location to correct the location drift.
+Next up a collection and retrieve task. object to be collected will be loose lego wheels lying around my flat.
+
+Collection task will use computer vision to locate lego wheels drive up to the wheels then push them to a drop off location. this will use the subsumption architecture. I will also need to add odometry using encoders. I will calibrate the camera and use arduco markers of know location to correct the location drift.
