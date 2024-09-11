@@ -32,5 +32,9 @@ with (
         [{"node": "distances", "topic": "distances"}],
     )
 
-    subscriber.add_listener("distances", avoid.update)
+    # subscriber.add_listener("distances", avoid.update)
     subscriber.start()
+
+    for topic, node, message in subscriber.json_stream():
+        print(topic, node, message)
+        avoid.update(message)

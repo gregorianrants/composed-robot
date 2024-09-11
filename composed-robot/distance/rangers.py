@@ -4,15 +4,6 @@ import concurrent.futures
 import time
 import lgpio as sbc
 from concurrent.futures import wait
-from robonet.Publisher import Publisher
-from dotenv import load_dotenv
-import zmq
-import os
-
-load_dotenv()
-
-
-PI_IP = os.getenv("PI_IP")
 
 
 class Rangers:
@@ -25,11 +16,11 @@ class Rangers:
         #     Ranger(sbc, 0, 27, 22, 4),
         # ]
         self.rangers = [
-             Ranger(sbc, 0, 27, 22, 4),
-             Ranger(sbc, 0, 23, 24, 3),
-              Ranger(sbc, 0, 6, 12, 2),
-              Ranger(sbc, 0, 21, 20, 1),
-              Ranger(sbc, 0, 26, 19, 0),
+            Ranger(sbc, 0, 27, 22, 4),
+            Ranger(sbc, 0, 23, 24, 3),
+            Ranger(sbc, 0, 6, 12, 2),
+            Ranger(sbc, 0, 21, 20, 1),
+            Ranger(sbc, 0, 26, 19, 0),
         ]
         self.groups = [[0, 2, 4], [1, 3]]
         self.executor = None
@@ -47,7 +38,7 @@ class Rangers:
         results = [f.result() for f in futures]
         for result in results:
             index = result["id"]
-            self.readings[index] = result['distance']
+            self.readings[index] = result["distance"]
         self.cb(self.readings)
 
     def start(self):
@@ -58,24 +49,3 @@ class Rangers:
                 time.sleep(0.7)
                 self.read_group(1)
                 time.sleep(0.7)
-
-
-context = zmq.Context()
-
-time.sleep(1)
-
-publisher = Publisher(
-    hub_ip=PI_IP,
-    context=context,
-    address=f"tcp://{PI_IP}",
-    node="distances",
-    topics=["distances"],
-)
-
-
-def send_json(distances):
-    publisher.send_json("distances", distances)
-
-
-rangers = Rangers(send_json)
-rangers.start()

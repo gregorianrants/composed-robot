@@ -16,7 +16,7 @@
         {
             "label": "distances",
             "type": "shell",
-            "command": "python3 -m composed-robot.distance.rangers"
+            "command": "python3 -m composed-robot.distance.node"
         },
         {
             "label": "avoid-group",
