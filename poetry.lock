@@ -350,7 +350,7 @@ pyzmq = "26.1.0"
 type = "git"
 url = "https://github.com/gregorianrants/robonet.git"
 reference = "HEAD"
-resolved_reference = "b5c765114dc22d4271053403becf135c5fc5da46"
+resolved_reference = "fac107256b9e3a26b5e4eda108184b5f60afe409"
 
 [[package]]
 name = "setuptools"
