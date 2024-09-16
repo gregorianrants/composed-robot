@@ -40,14 +40,9 @@
             "command": "python3 -m composed-robot.collection.robot_node"
         },
         {
-            "label": "vision",
-            "type": "shell",
-            "command": "python3 -m composed-robot.vision.main"
-        },
-        {
             "label": "collection-group",
             "dependsOn": [
-                "hub","collection","motor","vision"
+                "hub","collection","motor"
             ]
         },
     ]

@@ -4,13 +4,12 @@ import zmq
 from robonet.Publisher import Publisher
 import time
 
-PI_IP = os.getenv("PI_IP")
+# PI_IP = os.getenv("PI_IP")
 
-context = zmq.Context()
 
-publisher = Publisher(
-    PI_IP, context, f"tcp://{PI_IP}", "collection", topics=["robot-command"]
-)
+# publisher = Publisher(
+#     PI_IP, f"tcp://{PI_IP}", "collection", topics=["robot-command"]
+# )
 
 
 class Robot:
@@ -44,4 +43,4 @@ class Robot:
         )
 
 
-robot = Robot(publisher)
+# robot = Robot(publisher)

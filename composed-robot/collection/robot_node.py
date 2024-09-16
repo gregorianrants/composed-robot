@@ -15,15 +15,13 @@ PI_IP = os.getenv("PI_IP")
 
 with (
     BuildHat() as buildhat,
-    Motor("C", buildhat, -1, 1) as left_motor,
-    Motor("D", buildhat, 1, 1) as right_motor,
+    Motor("C", buildhat, -1, 25) as left_motor,
+    Motor("D", buildhat, 1, 25) as right_motor,
 ):
     robot = Robot(left_motor, right_motor)
 
-    context = zmq.Context()
-
     publisher = Publisher(
-        PI_IP, context, f"tcp://{PI_IP}", "robot", topics=["left_motor", "right_motor"]
+        PI_IP, f"tcp://{PI_IP}", "robot", topics=["left_motor", "right_motor"]
     )
 
     def send_left(data):
@@ -37,7 +35,6 @@ with (
 
     subscriber = Subscriber(
         PI_IP,
-        context,
         [{"node": "collection", "topic": "robot-command"}],
     )
 
