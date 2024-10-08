@@ -37,6 +37,7 @@ subscriber = Subscriber(
     [
         {"node": "robot", "topic": "left_motor"},
         {"node": "robot", "topic": "right_motor"},
+        {"node": "aruco-location", "topic": "aruco-location"},
     ],
 )
 
@@ -71,9 +72,12 @@ while True:
         odometry.updateRight(message["pos"])
     elif topic == "distances":
         avoid.update(message)
+    elif topic == "aruco-location":
+        # print("aruco", message)
+        odometry.updateAbsolutePosition(message["x"], message["y"], message["theta"])
     if topic == "timer":
         publisher.send_json(
             "robot-position",
             {"x": odometry.x, "y": odometry.y, "theta": odometry.theta},
         )
-        print(rg.readings)
+        # print(rg.readings)

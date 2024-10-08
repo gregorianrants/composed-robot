@@ -40,9 +40,34 @@
             "command": "python3 -m composed-robot.collection.robot_node"
         },
         {
+            "label": "vision",
+            "type": "shell",
+            "command": "python3 -m composed-robot.vision.main"
+        },
+        
+            {
+                "label": "vision-hub",
+                "dependsOn": [
+                    "hub","vision"
+                ]
+            },
+
+        
+        {
             "label": "collection-group",
             "dependsOn": [
-                "hub","collection","motor"
+                "hub","collection","motor","vision"
+            ]
+        },
+        {
+            "label": "drive",
+            "type": "shell",
+            "command": "python3 -m composed-robot.drive_robot"
+        },
+        {
+            "label": "drive-and-see",
+            "dependsOn": [
+                "hub","drive","vision"
             ]
         },
     ]

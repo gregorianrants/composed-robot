@@ -1,9 +1,6 @@
 import math
 
 
-
-
-
 class Odometry:
     def __init__(self):
         self.lastLeftPosition = None
@@ -14,6 +11,11 @@ class Odometry:
         self.dl = None
         self.dr = None
         self.DISTANCE_BETWEEN_WHEELS = 176  # mm
+
+    def updateAbsolutePosition(self, x, y, theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
 
     def updatePosition(self):
         dTheta = (self.dr - self.dl) / self.DISTANCE_BETWEEN_WHEELS

@@ -25,13 +25,13 @@ with (
         def press(key):
             print(f"'{key}' pressed")
             if key == "k":
-                robot.forward()
+                robot.forward(200)
             if key == "m":
                 robot.back()
             if key == "z":
-                robot.left()
+                robot.left(150)
             if key == "x":
-                robot.right()
+                robot.right(150)
             if key == "space":
                 robot.pause()
 
