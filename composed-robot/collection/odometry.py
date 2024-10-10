@@ -25,7 +25,8 @@ class Odometry:
         self.y = self.y + dc * math.cos(self.theta)
 
     def updateLeft(self, pos):
-        pos = (pos / 360) * 276.401 * -1  # convert to mm
+        # pos = (pos / 360) * 276.401 * -1  # convert to mm
+        pos = (pos / 360) * 276.401  # convert to mm
         if not self.lastLeftPosition:
             self.lastLeftPosition = pos
             return
