@@ -1,18 +1,57 @@
 # Raspberry Pi robot
 
-## intro
+## Introduction
+This is the main software repository for the pictured robot.  Much of the codebase that this robot uses has been split out into reusable packages that can be used in other projects.  This codebase composes these packages and adds to them to give the robot complex higher-level behaviours.
 
-Obstacle avoiding raspberry pi robot, with distributed software architecture, at the moment this readme just gives an overview of what the hardware and software does. Soon more information will be added on both how the software works and how it was designed.
 
 <img src="robot.jpg" alt='the robot' width='400px'/>
 
-This is a rewrite of a project that was mainly written in nodejs. there are quite a few things i have already done in that project and others that i just need to reimplement.
+## A note to anyone that wants to build this robot
+I am still in the phase of making a lot of changes to this project once I have completed the next behaviour I will move into a phase where I document things more clearly and organise the code to be more understandable.
 
-There are parts of this project that aren’t completed this will probably always be the case. This is a passion project, it is something I plan to continuously experiment with refactor and add to. Although there is much in an uncompleted state there is also much that can run and works brilliantly.
+## Implemented So Far
+
+- can drive around in unstructured messy human environments with very robust obstacle avoidance.  there is a video bellow.
+- track its location using odometry via wheel encoders.
+- Update the absolute location of the robot intermittently.  Use computer vision to estimate pose of the robot using a calibrated camera and aruco markers of known location. there is a video bellow.
+- Display the location of the robot on a remote machine.
+- Show the robots eye view on a remote machine.
+- Use a distributed software architecture multiple processes across multiple machines that interact via tcp using a custom library I wrote called robonet.
+- Compose behaviours using the subsumption control architecture
+
+## Coming soon
+
+Perform a collection task – there will be multiple lego wheels spread about the robots environment.  The robot will use computer vision to identify the wheels It will collect them and return them all to the same location.
+All the features that have came so far have been building up to giving the robot the ability to do this.
+
+
+## Hardware
+
+### Raspberry Pi Build hat
+Since I want this project to highlight my robotics skills, I want to point out that although this project uses Lego motors the speed control of the motors is done from scratch by reading the encoders to measure speed running a pid algorithm and setting the power of the motors via pwm.
+The reason for doing it like this was that the official library for the build hat has some shortcomings that make it not fit for purpose for robotics. I have published a custom library that can be used in any project, https://github.com/gregorianrants/buildhat-alternative
+
+### Rest of hardware
+
+- Raspberry pi
+- Pi camera
+- 5 * HC-SR04 ultrasonic distance sensors (3v version)
+- 5 * lithium AA battery  and a 5 battery holder
+- Lots of lego technic
+- Lego Large Angular Motor 88017
+
 
 ## Associated libraries
 
 This library composes other robotics libraries i wrote.
+it is important to note that a lot of the behaviors rely on the composed robot desktop package running on another machine. the other 2 packages are dependencies of this codebase.
+
+### composed-robot-desktop
+
+communicates with robot via robonet. will be used for viewing output of camera, and intensive data processing and other things best done of pi. so far i am using for outputting a plot of encoder readings.
+
+https://github.com/gregorianrants/composed-robot-desktop
+
 
 ### Buildhat-alternative
 
@@ -26,11 +65,11 @@ a library for communication between nodes on robot and across lan using zeromq
 
 https://github.com/gregorianrants/robonet
 
-### composed-robot-desktop
+## entry points
 
-communicates with robot via robonet. will be used for viewing output of camera, and intensive data processing and other things best done of pi. so far i am using for outputting a plot of encoder readings.
+vs code tasks is used to launch the entry points you can see the tasks in the file .vscode/tasks.json
+i will be adding more info to the repo about launching behaviors once the next behavior is complete.
 
-https://github.com/gregorianrants/composed-robot-desktop
 
 ## Software Architecture
 
@@ -48,14 +87,13 @@ Nodes can be composed in diverse ways to create behaviors. vs code tasks are use
 
 here is a video of the robot doing obstacle avoidance
 
-<a href="https://1drv.ms/v/s!Aom8i-zBShxvrOkKXISSJo1OxN6IYw?e=2Tu53M" title="Link Title"><img src="image.png" alt="Alternate Text" /></a>
+https://youtu.be/hJ4X7Qsf1MY
 
-this uses 2 nodes that run on the raspberry pi and the hub node that allows them to know how to communicate.
+<a href="https://youtu.be/hJ4X7Qsf1MY" title="Link Title"><img src="image.png" alt="Alternate Text" /></a>
 
-all three programs can be run at once using vs code tasks see .vscode/tasks.json the task for this behavior is avoid-group
+<!--- <a href="https://1drv.ms/v/s!Aom8i-zBShxvrOkKXISSJo1OxN6IYw?e=2Tu53M" title="Link Title"><img src="image.png" alt="Alternate Text" /></a> --->
 
-## where i am going with this
+# Location Tracking
 
-Next up a collection and retrieve task. object to be collected will be loose lego wheels lying around my flat.
+<a href="https://youtu.be/1be9SNptOeM" title="Link Title"><img src="image.png" alt="Alternate Text" /></a>
 
-Collection task will use computer vision to locate lego wheels drive up to the wheels then push them to a drop off location. this will use the subsumption architecture. I will also need to add odometry using encoders. I will calibrate the camera and use arduco markers of know location to correct the location drift.
