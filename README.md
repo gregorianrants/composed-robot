@@ -93,7 +93,7 @@ https://youtu.be/hJ4X7Qsf1MY
 
 <!--- <a href="https://1drv.ms/v/s!Aom8i-zBShxvrOkKXISSJo1OxN6IYw?e=2Tu53M" title="Link Title"><img src="image.png" alt="Alternate Text" /></a> --->
 
-# Location Tracking
+## Location Tracking
 
-<a href="https://youtu.be/1be9SNptOeM" title="Link Title"><img src="image.png" alt="Alternate Text" /></a>
+<a href="https://youtu.be/1be9SNptOeM" title="Link Title"><img src="Screenshot.png" alt="Alternate Text" width="500"/></a>
 
