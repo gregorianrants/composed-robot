@@ -20,8 +20,6 @@ class Avoid:
 
     def update(self, distances):
         self.state.update_state(distances)
-        print('avoid state',self.state.state)
-        print(isinstance(self.state.state,DriveFree))
         translation, rotation = self.state.get_velocities(distances)
         #this is different from the stand alone version of avoid as the stand alone behaviour gives velocities this version leaves it to a another behaviour 
         if isinstance(self.state.state,DriveFree):

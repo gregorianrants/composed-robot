@@ -1,7 +1,7 @@
 class Start:
     def __init__(self, arbiter):
-        self.count = 0
-        self.priority = 100
+        self.count = 1
+        self.priority = 200
         self.arbiter = arbiter
 
     def update(self, left_motor_data):
@@ -11,3 +11,4 @@ class Start:
             self.arbiter.update(self, True, 0, 0)
         if self.count == 6:
             self.arbiter.update(self, False, 0, 0)
+            self.count +=1

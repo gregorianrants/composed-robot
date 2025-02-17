@@ -68,26 +68,34 @@ class Robot:
         
     def is_latched(self,new_behavior):
         return self.latched_behavior == new_behavior
+    
         
     def update(self,new_behavior, active, translation, rotation):
         if new_behavior.priority < self.latched_behavior.priority:
             #1
             return
-        elif self.is_latched(new_behavior) and not active:
+        #notice we use early return making the bellow equivalent to
+        # new_behavior.priority >= self.latched_behavior.priority
+        if  (active):
+            #3
+            #priority greater than OR EQUAL TO previous behavior
+            # and can be either latched or not latched
+            # and is active
+            if self.latched_behavior != new_behavior:
+                print('latching',new_behavior)
+                self.latched_behavior = new_behavior
+            self.set_velocities(translation,rotation)
+        if (not active and self.is_latched(new_behavior)):
             #2
             #priority greater than OR EQUAL TO previous behavior
             # and is latched
             # and is not active
             print('unlatching',new_behavior)
-            self.latched=Unlatched
-        elif active==True:
-            #3
-            #priority greater than OR EQUAL TO previous behavior
-            # and can be either latched or not latched
-            # and is active
-            print('latching',new_behavior)
-            self.latched = new_behavior
-            self.set_velocities(translation,rotation)
+            self.latched_behavior=Unlatched()
+            return
+        
+            
+        
             
     def set_velocities(self, translation, rotation):
         self.publisher.send_json(

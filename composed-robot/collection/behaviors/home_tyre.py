@@ -6,7 +6,7 @@ class HomeTyre():
         self.robot = robot
         self.priority = 100
         self.previous_translation = None
-        self.previous_translation = None
+        self.previous_rotation = None
         
     def update(self,message):
         x = message['x']
