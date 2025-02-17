@@ -12,40 +12,90 @@ import time
 # )
 
 
+# class Robot:
+#     def __init__(self, publisher):
+#         self.publisher = publisher
+#         self.current_behavior = None
+#         self.latched = None
+
+#     def set_initial_behavior(self, behavior):
+#         self.current_behavior = behavior
+#         self.latched = True
+
+#     def update(self, behavior, active, translation, rotation):
+#         if behavior is self.current_behavior:
+#             # new behavior is current behavior and new behavior is active
+#             if active:
+#                 return self.set_velocities(translation, rotation)
+#             # new behavior is current behavior and new behavior is not active
+#             else:
+#                 self.latched = False
+#                 self.set_velocities(translation, rotation)
+#         elif active:
+#              # new behavior is not current behavior and 
+#              # new behavior is active
+#              # and new behavior has higher priority than current behavior
+#              #doesnt matter if latched or not because it has higher priority
+#             if behavior.priority > self.current_behavior.priority:
+#                 self.current_behavior = behavior
+#                 print('changing behaviour to',behavior)
+#                 self.latched = True
+#                 self.set_velocities(translation, rotation)
+#             if behavior.priority < self.current_behavior.priority and not self.latched:
+#                 print('changing behaviour to', behavior)
+#                 self.current_behavior = behavior
+#                 self.latched = True
+#                 self.set_velocities(translation, rotation)
+                
+
+#     def set_velocities(self, translation, rotation):
+#         self.publisher.send_json(
+#             "robot-command", {"translation": translation, "rotation": rotation}
+#         )
+        
+        
+class Unlatched:
+    def __init__(self):
+        self.priority = 0
+    
 class Robot:
     def __init__(self, publisher):
         self.publisher = publisher
-        self.current_behavior = None
-        self.latched = None
-
+        self.latched_behavior = Unlatched()
+        
     def set_initial_behavior(self, behavior):
-        self.current_behavior = behavior
-        self.latched = True
-
-    def update(self, behavior, active, translation, rotation):
-        if behavior is self.current_behavior:
-            if active:
-                return self.set_velocities(translation, rotation)
-            else:
-                self.latched = False
-                self.set_velocities(translation, rotation)
-        elif active:
-            if behavior.priority > self.current_behavior.priority:
-                self.current_behavior = behavior
-                print('changing behaviour to',behavior)
-                self.latched = True
-                self.set_velocities(translation, rotation)
-            if behavior.priority < self.current_behavior.priority and not self.latched:
-                print('changing behaviour to', behavior)
-                self.current_behavior = behavior
-                self.latched = True
-                self.set_velocities(translation, rotation)
-                
-
+        self.latched_behavior = behavior
+        
+    def is_latched(self,new_behavior):
+        return self.latched_behavior == new_behavior
+        
+    def update(self,new_behavior, active, translation, rotation):
+        if new_behavior.priority < self.latched_behavior.priority:
+            #1
+            return
+        elif self.is_latched(new_behavior) and not active:
+            #2
+            #priority greater than OR EQUAL TO previous behavior
+            # and is latched
+            # and is not active
+            print('unlatching',new_behavior)
+            self.latched=Unlatched
+        elif active==True:
+            #3
+            #priority greater than OR EQUAL TO previous behavior
+            # and can be either latched or not latched
+            # and is active
+            print('latching',new_behavior)
+            self.latched = new_behavior
+            self.set_velocities(translation,rotation)
+            
     def set_velocities(self, translation, rotation):
         self.publisher.send_json(
             "robot-command", {"translation": translation, "rotation": rotation}
         )
+        
+            
+        
 
 
 # robot = Robot(publisher)
