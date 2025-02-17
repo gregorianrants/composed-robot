@@ -3,6 +3,8 @@
 ## Introduction
 This is the main software repository for the pictured robot.  Much of the codebase that this robot uses has been split out into reusable packages that can be used in other projects.  This codebase composes these packages and adds to them to give the robot complex higher-level behaviours.
 
+If you just want to see the robot in action there are some videos at the [bottom of the page](#id1) 
+
 
 <img src="robot.jpg" alt='the robot' width='400px'/>
 
@@ -28,7 +30,9 @@ All the features that have came so far have been building up to giving the robot
 ## Hardware
 
 ### Raspberry Pi Build hat
-Since I want this project to highlight my robotics skills, I want to point out that although this project uses Lego motors the speed control of the motors is done from scratch by reading the encoders to measure speed running a pid algorithm and setting the power of the motors via pwm.
+Although this project uses Lego motors, the speed control of the motors is done from scratch by reading the encoders to measure speed, running a pid algorithm and setting the power of the motors via pwm.
+This was actually more difficult than just using a standard dc motor with and encoder, as i had to communicate with obscure firmware on the build hat via serial to read encoders and set power.  however i wanted to use lego because of the mechanical flexibility it brings, and now that i have figured this out it can be used in multiple projects.
+
 The reason for doing it like this was that the official library for the build hat has some shortcomings that make it not fit for purpose for robotics. I have published a custom library that can be used in any project, https://github.com/gregorianrants/buildhat-alternative
 
 ### Rest of hardware
@@ -83,7 +87,7 @@ I previously used this system to communicate between nodes written in different 
 
 Nodes can be composed in diverse ways to create behaviors. vs code tasks are used to launch suites of nodes and run behaviors.
 
-## Obstacle avoidance
+## Obstacle avoidance <a id="id1"></a>
 
 here is a video of the robot doing obstacle avoidance
 

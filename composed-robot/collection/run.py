@@ -18,6 +18,10 @@ from .behaviors.avoid import Avoid
 from .behaviors.start import Start
 from .workers import LocalWorker, Worker
 from .odometry import Odometry
+from .behaviors.drive_free import DriveFree
+from .behaviors.home_tyre import HomeTyre
+
+
 
 
 def timer_generator():
@@ -38,6 +42,7 @@ subscriber = Subscriber(
         {"node": "robot", "topic": "left_motor"},
         {"node": "robot", "topic": "right_motor"},
         {"node": "aruco-location", "topic": "aruco-location"},
+        {"node": "object_locator", "topic": "object_position"},
     ],
 )
 
@@ -58,21 +63,30 @@ timer_worker.start()
 
 
 avoid = Avoid(robot)
+drive_free = DriveFree(robot)
 start = Start(robot)
+home_tyre = HomeTyre(robot)
 robot.set_initial_behavior(start)
 odometry = Odometry()
 
+
+
 while True:
     (topic, node, message) = q.get()
-    # handlers.update(topic, node, message)
+    
+   
+    #handlers.update(topic, node, message)
     if topic == "left_motor":
         start.update(message)
         odometry.updateLeft(message["pos"])
     if topic == "right_motor":
         odometry.updateRight(message["pos"])
-    elif topic == "distances":
+    if topic == "distances":
         avoid.update(message)
-    elif topic == "aruco-location":
+        drive_free.update(message)
+    if topic == 'object_position':
+        home_tyre.update(message)
+    if topic == "aruco-location":
         # print("aruco", message)
         odometry.updateAbsolutePosition(message["x"], message["y"], message["theta"])
     if topic == "timer":
@@ -80,4 +94,4 @@ while True:
             "robot-position",
             {"x": odometry.x, "y": odometry.y, "theta": odometry.theta},
         )
-        # print(rg.readings)
+        #print(rg.readings)

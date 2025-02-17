@@ -1,4 +1,4 @@
-from .state import State
+from .state import State,DriveFree
 
 
 class Avoid:
@@ -10,3 +10,4 @@ class Avoid:
         self.state.update_state(distances)
         translation, rotation = self.state.get_velocities(distances)
         self.robot.set_velocities(translation, rotation)
+        

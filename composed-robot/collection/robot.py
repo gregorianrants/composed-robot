@@ -28,14 +28,19 @@ class Robot:
                 return self.set_velocities(translation, rotation)
             else:
                 self.latched = False
+                self.set_velocities(translation, rotation)
         elif active:
             if behavior.priority > self.current_behavior.priority:
                 self.current_behavior = behavior
+                print('changing behaviour to',behavior)
                 self.latched = True
+                self.set_velocities(translation, rotation)
             if behavior.priority < self.current_behavior.priority and not self.latched:
-                print("hellolooowowo")
+                print('changing behaviour to', behavior)
                 self.current_behavior = behavior
                 self.latched = True
+                self.set_velocities(translation, rotation)
+                
 
     def set_velocities(self, translation, rotation):
         self.publisher.send_json(

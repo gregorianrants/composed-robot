@@ -22,3 +22,5 @@ class LocalWorker(Thread):
     def run(self):
         for topic, node, message in self.event_generator():
             self.queue.put((topic, node, message))
+            
+            

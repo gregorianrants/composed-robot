@@ -6,7 +6,8 @@
         {
             "label": "distances-test",
             "type": "shell",
-            "command": "python3 -m composed-robot.distance.run"
+            "command": "python3 -m composed-robot.distance.run",
+            
         },
         {
             "label": "hub",
@@ -33,16 +34,40 @@
             "label": "collection",
             "type": "shell",
             "command": "python3 -m composed-robot.collection.run",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false,
+                "group": "experiment1"
+            }
         },
         {
             "label": "motor",
             "type": "shell",
-            "command": "python3 -m composed-robot.collection.robot_node"
+            "command": "python3 -m composed-robot.collection.robot_node",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false,
+                "group": "experiment1"
+            }
         },
         {
             "label": "vision",
             "type": "shell",
-            "command": "python3 -m composed-robot.vision.main"
+            "command": "python3 -m composed-robot.vision.main",
+           
+        },
+        {
+            "label": "home-tyre",
+            "type": "shell",
+            "command": "python3 -m composed-robot.home_tyre.home_tyre"
         },
         
             {
@@ -70,5 +95,6 @@
                 "hub","drive","vision"
             ]
         },
+
     ]
 }

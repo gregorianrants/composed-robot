@@ -8,7 +8,8 @@ import pprint
 import cv2
 from picamera2 import Picamera2
 import time
-
+import io
+from picamera2.encoders import JpegEncoder
 
 picam2 = Picamera2()
 
@@ -35,7 +36,7 @@ print("__________________________________________________________\n")
 pprint.pp(picam2.camera_properties)
 print("__________________________________________________________\n")
 picam2.controls.AeExposureMode = 1
-fps = 0
+fps = 10
 pos = (30, 60)
 
 
@@ -63,11 +64,12 @@ count = 0
 while True:
     tStart = time.time()
     im = picam2.capture_array("lores")
+    # im = picam2.capture_array()
     im = cv2.cvtColor(im, cv2.COLOR_YUV420p2RGB)
     if count == 0:
         print(im.shape)
         count += 1
-    cv2.putText(im, str(int(fps)) + " FPS", pos, font, height, myColor, weight)
+    #cv2.putText(im, str(int(fps)) + " FPS", pos, font, height, myColor, weight)
     res, jpeg = cv2.imencode(".jpg", im)
     publisher.send_bytes("frame", jpeg)
     if cv2.waitKey(1) == ord("q"):
@@ -75,9 +77,9 @@ while True:
     tEnd = time.time()
     loopTime = tEnd - tStart
     fps = 0.9 * fps + 0.1 * (1 / loopTime)
-cv2.destroyAllWindows()
+    if count%30 ==0:
+        print(fps)
+    count +=1
 
 
-for i in range(10):
-
-    time.sleep(1)
+    
