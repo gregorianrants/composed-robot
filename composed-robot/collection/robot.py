@@ -3,6 +3,7 @@ import os
 import zmq
 from robonet.Publisher import Publisher
 import time
+from .behaviors.home_tyre import HomeTyre
 
 # PI_IP = os.getenv("PI_IP")
 
@@ -71,6 +72,9 @@ class Robot:
     
         
     def update(self,new_behavior, active, translation, rotation):
+        # if isinstance(new_behavior,HomeTyre):
+        #     print(' we are homing now')
+        #     print(new_behavior,new_behavior.priority,self.latched_behavior,self.latched_behavior.priority)
         if new_behavior.priority < self.latched_behavior.priority:
             #1
             return
@@ -92,11 +96,9 @@ class Robot:
             # and is not active
             print('unlatching',new_behavior)
             self.latched_behavior=Unlatched()
+            #should previous behavior set a velocity
             return
         
-            
-        
-            
     def set_velocities(self, translation, rotation):
         self.publisher.send_json(
             "robot-command", {"translation": translation, "rotation": rotation}

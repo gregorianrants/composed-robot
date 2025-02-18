@@ -10,6 +10,11 @@
             
         },
         {
+            "label": "home_tyre-test",
+            "type": "shell",
+            "command": "python3 -m composed-robot.collection.behaviors.home_tyre-test",
+        },
+        {
             "label": "hub",
             "type": "shell",
             "command": "python3 -m composed-robot.hub"

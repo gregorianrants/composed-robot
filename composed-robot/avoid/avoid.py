@@ -1,6 +1,4 @@
 from .state import State,DriveFree
-
-
 class Avoid:
     def __init__(self, robot):
         self.state = State()

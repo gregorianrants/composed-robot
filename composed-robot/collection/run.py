@@ -70,11 +70,13 @@ robot.set_initial_behavior(start)
 odometry = Odometry()
 
 
-
+count = 0
 while True:
     (topic, node, message) = q.get()
+    count+=1
+    # if count%15==0:
+    #         print(message)
     
-   
     #handlers.update(topic, node, message)
     if topic == "left_motor":
         start.update(message)
@@ -85,6 +87,7 @@ while True:
         avoid.update(message)
         drive_free.update(message)
     if topic == 'object_position':
+        #print('hey homie',message)
         home_tyre.update(message)
     if topic == "aruco-location":
         # print("aruco", message)
@@ -94,4 +97,4 @@ while True:
             "robot-position",
             {"x": odometry.x, "y": odometry.y, "theta": odometry.theta},
         )
-        #print(rg.readings)
+            #print(rg.readings)
