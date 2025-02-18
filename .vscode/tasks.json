@@ -38,7 +38,7 @@
         {
             "label": "collection",
             "type": "shell",
-            "command": "python3 -m composed-robot.collection.run",
+            "command": "python3 -m composed-robot.collection",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -52,7 +52,7 @@
         {
             "label": "motor",
             "type": "shell",
-            "command": "python3 -m composed-robot.collection.robot_node",
+            "command": "python3 -m composed-robot.robot_node",
             "presentation": {
                 "echo": true,
                 "reveal": "always",

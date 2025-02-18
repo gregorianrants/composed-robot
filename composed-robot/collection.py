@@ -13,13 +13,14 @@ from buildhat_alternative.robot import Robot
 
 from .robot import Robot
 
-from ..distance.rangers_generator import rangers_generator, rg
+from .distance.rangers_generator import rangers_generator, rg
 from .behaviors.avoid import Avoid
 from .behaviors.start import Start
 from .workers import LocalWorker, Worker
 from .odometry import Odometry
 from .behaviors.drive_free import DriveFree
 from .behaviors.home_tyre import HomeTyre
+from .arbitration.arbiter import Arbiter
 
 
 
@@ -50,7 +51,7 @@ publisher = Publisher(
     PI_IP, f"tcp://{PI_IP}", "collection", topics=["robot-command", "robot-position"]
 )
 
-robot = Robot(publisher)
+
 
 q = Queue()
 
@@ -62,11 +63,21 @@ distance_worker.start()
 timer_worker.start()
 
 
-avoid = Avoid(robot)
-drive_free = DriveFree(robot)
-start = Start(robot)
-home_tyre = HomeTyre(robot)
-robot.set_initial_behavior(start)
+def set_velocities(translation, rotation):
+        publisher.send_json(
+            "robot-command", {"translation": translation, "rotation": rotation}
+        )
+
+arbiter = Arbiter(update_function=set_velocities)
+
+start = Start('start',arbiter,priority=100)
+start.has_control = True
+
+home_tyre = HomeTyre('home_tyre',arbiter,priority=50)
+avoid = Avoid('avoid',arbiter,priority=20)
+drive_free = DriveFree('drive_free',arbiter,priority=10)
+
+
 odometry = Odometry()
 
 

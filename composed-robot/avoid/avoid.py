@@ -9,3 +9,5 @@ class Avoid:
         translation, rotation = self.state.get_velocities(distances)
         self.robot.set_velocities(translation, rotation)
         
+
+        

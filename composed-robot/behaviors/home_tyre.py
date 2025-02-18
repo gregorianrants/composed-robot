@@ -1,33 +1,33 @@
 import numpy as np
 import math
+from ..arbitration.behaviour import Behaviour
 
-class HomeTyre():
-    def __init__(self,robot):
-        self.robot = robot
-        self.priority = 100
+
+class HomeTyre(Behaviour):
+    def __init__(self,name,arbiter,priority):
+        super().__init__(name,arbiter,priority)
         self.previous_translation = None
         self.previous_rotation = None
         self.count = 0
         
-    def update(self,message):
+    def _update(self,message):
         x = message['x']
         y = message['y']
         
         if not x and self.previous_rotation:
             if self.count<=5:
                 print(self.count)
-                self.robot.update(self,True,self.previous_translation
-                                ,self.previous_rotation)
+                
                 self.count +=1
+                return (True,self.previous_translation,self.previous_rotation)
                 return
             elif self.count==6:
-                self.robot.update(self,False,self.previous_translation
-                                ,self.previous_rotation)
+                result = (False,self.previous_translation,self.previous_rotation)
                 self.previous_translation = None
                 self.previous_rotation = None
-                return
-            else:
-                return
+                return result
+        if (not x) and (not self.previous_rotation):
+                return (False,self.previous_translation,self.previous_rotation)
         if x:
             self.count = 0
 
@@ -43,4 +43,4 @@ class HomeTyre():
             rotation = -(theta/(math.pi/2))
             self.previous_translation = translation
             self.previous_rotation = rotation
-            self.robot.update(self,True,translation,rotation)
+            return (True,translation,rotation)
