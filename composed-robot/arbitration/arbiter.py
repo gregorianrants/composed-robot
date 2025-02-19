@@ -7,6 +7,9 @@ class Arbiter:
         self.behaviours.append(behaviour)
         self.behaviours = sorted(self.behaviours,key=lambda x: x.priority,reverse=True)
         
+    def get_priority_behaviours(self):
+        return [b.name for b in self.behaviours if b.has_control == True]
+        
         
     def ask_for_control(self,behaviour_asking_for_control):
         for behaviour in self.behaviours:

@@ -42,7 +42,7 @@ subscriber = Subscriber(
     [
         {"node": "robot", "topic": "left_motor"},
         {"node": "robot", "topic": "right_motor"},
-        {"node": "aruco-location", "topic": "aruco-location"},
+        #{"node": "aruco-location", "topic": "aruco-location"},
         {"node": "object_locator", "topic": "object_position"},
     ],
 )

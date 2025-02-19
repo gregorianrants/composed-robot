@@ -29,9 +29,9 @@ with (
             if key == "m":
                 robot.back()
             if key == "z":
-                robot.left(150)
+                robot.left(220)
             if key == "x":
-                robot.right(150)
+                robot.right(220)
             if key == "space":
                 robot.pause()
 

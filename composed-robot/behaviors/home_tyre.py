@@ -40,7 +40,8 @@ class HomeTyre(Behaviour):
             
             max_rotation = 0.5
             translation = 200
-            rotation = -(theta/(math.pi/2))
+            rotation_scaling_factor = 1.5
+            rotation = -(theta/(math.pi/2))*rotation_scaling_factor
             self.previous_translation = translation
             self.previous_rotation = rotation
             return (True,translation,rotation)
