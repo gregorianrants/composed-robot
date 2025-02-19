@@ -10,7 +10,7 @@ class HomeTyre(Behaviour):
         self.previous_rotation = None
         self.count = 0
         
-    def _update(self,message):
+    def update(self,message):
         x = message['x']
         y = message['y']
         
@@ -19,15 +19,14 @@ class HomeTyre(Behaviour):
                 print(self.count)
                 
                 self.count +=1
-                return (True,self.previous_translation,self.previous_rotation)
-                return
+                return self._update(True,self.previous_translation,self.previous_rotation)
             elif self.count==6:
                 result = (False,self.previous_translation,self.previous_rotation)
                 self.previous_translation = None
                 self.previous_rotation = None
-                return result
+                return self._update(*result)
         if (not x) and (not self.previous_rotation):
-                return (False,self.previous_translation,self.previous_rotation)
+                return self._update(False,self.previous_translation,self.previous_rotation)
         if x:
             self.count = 0
 
@@ -44,4 +43,4 @@ class HomeTyre(Behaviour):
             rotation = -(theta/(math.pi/2))*rotation_scaling_factor
             self.previous_translation = translation
             self.previous_rotation = rotation
-            return (True,translation,rotation)
+            return self._update(True,translation,rotation)

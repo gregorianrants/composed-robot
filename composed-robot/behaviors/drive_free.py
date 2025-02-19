@@ -2,5 +2,5 @@ from ..arbitration.behaviour import Behaviour
 
 
 class DriveFree(Behaviour):
-    def _update(self, distances):
-        return (True,200, 0)
+    def update(self, distances):
+        return self._update(True,200, 0)

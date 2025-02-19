@@ -7,11 +7,11 @@ class Avoid(Behaviour):
         super().__init__(name,arbiter,priority)
         self.state = State()
 
-    def _update(self, distances):
+    def update(self, distances):
         self.state.update_state(distances)
         translation, rotation = self.state.get_velocities(distances)
         if isinstance(self.state.state,DriveFree):
-            return False,translation,rotation
-        return True,translation,rotation
+            return self._update(False,translation,rotation)
+        return self._update(True,translation,rotation)
             
         

@@ -6,13 +6,13 @@ class Start(Behaviour):
         self.count = 1
         
 
-    def _update(self, left_motor_data):
+    def update(self, left_motor_data):
         if self.count < 6:
             print(f"lift off in {6-self.count}")
             self.count += 1
-            return (True, 0, 0)
+            return self._update(True, 0, 0)
         if self.count == 6:
             self.count +=1
-            return (False, 0, 0)
-        return (False, 0, 0)
+            return self._update(False, 0, 0)
+        return self._update(False, 0, 0)
             
