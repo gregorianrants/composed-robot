@@ -20,11 +20,12 @@ I am still in the phase of making a lot of changes to this project once I have c
 - Show the robots eye view on a remote machine.
 - Use a distributed software architecture multiple processes across multiple machines that interact via tcp using a custom library I wrote called robonet.
 - Compose behaviours using the subsumption control architecture
+- can locate a piece of lego using computer vision and find its x,y cooridinates relative to the robot
+- can collect the lego using scoop appendage attached to the front of the robot
 
 ## Coming soon
 
-Perform a collection task – there will be multiple lego wheels spread about the robots environment.  The robot will use computer vision to identify the wheels It will collect them and return them all to the same location.
-All the features that have came so far have been building up to giving the robot the ability to do this.
+return the piece of lego to a specified location. after this is done detailed documentation will be written explaining how to replicate this project.
 
 
 ## Hardware
